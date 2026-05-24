@@ -151,7 +151,36 @@ CakeDecorator o--> ICake : has-a
 - Simplified interface to complex subsystems
 
 ```mermaid
+classDiagram
 
+class Client {
+    +main()
+}
+
+class CoffeeMakerFacade {
+    -grinder: Grinder
+    -brewer: Brewer
+    -boilder: Biolder
+    +makeCoffee()
+}
+
+class Grinder {
+    +grind()
+}
+
+class Brewer {
+    +brew()
+}
+
+class Biolder {
+    +boil()
+}
+
+%% Relationships
+Client --> CoffeeMakerFacade : uses
+CoffeeMakerFacade --> Grinder : delegates
+CoffeeMakerFacade --> Brewer : delegates
+CoffeeMakerFacade --> Biolder : delegates
 ```
 
 ---
