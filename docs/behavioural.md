@@ -192,7 +192,39 @@ Client --> NameCollection : uses
 - Captures and restores object state
 
 ```mermaid
+classDiagram
 
+class Client {
+  +main()
+}
+
+class History {
+  -mementos: EditorMemento[]
+  +push(memento: EditorMemento): void
+  +pop(): EditorMemento | undefined
+}
+
+class Editor {
+  -content: string
+  +type(words: string): void
+  +getContent(): string
+  +save(): EditorMemento
+  +restore(memento: EditorMemento): void
+}
+
+class EditorMemento {
+  -content: string
+  +EditorMemento(content: string)
+  +getContent(): string
+}
+
+Client ..> Editor : creates & uses
+Client ..> History : creates & uses
+
+History *-- "0..*" EditorMemento : stores
+
+Editor ..> EditorMemento : creates
+Editor ..> EditorMemento : restores from
 ```
 
 ---
